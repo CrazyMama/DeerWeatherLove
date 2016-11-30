@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_city"
+            android:icon="@drawable/ic_location"
+            android:title="@string/nav_city"/>
+        <item
+            android:id="@+id/nav_more_cities"
+            android:title="@string/more_cities"
+            android:icon="@drawable/ic_more_citis"/>
+    </group>
+
+    <item android:title="@string/app_name">
+        <menu>
+            <item
+                android:id="@+id/nav_set"
+                android:icon="@drawable/ic_menu_set"
+                android:title="@string/setting"/>
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_menu_about"
+                android:title="@string/about"/>
+        </menu>
+    </item>
+</menu>

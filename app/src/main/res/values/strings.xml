@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">小鹿天气</string>
+    <string name="nav_city">城市选择</string>
+    <string name="more_cities">城市管理</string>
+    <string name="setting">设置</string>
+    <string name="about">关于我</string>
+</resources>
