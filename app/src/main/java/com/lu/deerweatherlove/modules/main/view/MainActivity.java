@@ -8,7 +8,7 @@ import com.lu.deerweatherlove.R;
 /**
  * Created by L on 16/11/30.
  */
-public class MainAcitvity extends Activity{
+public class MainActivity extends Activity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

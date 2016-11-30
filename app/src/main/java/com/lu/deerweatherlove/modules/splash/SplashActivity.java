@@ -7,8 +7,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.Bundle;
 
-import com.lu.deerweatherlove.R;
-import com.lu.deerweatherlove.modules.main.view.MainAcitvity;
+import com.lu.deerweatherlove.modules.main.view.MainActivity;
 
 import java.lang.ref.WeakReference;
 
@@ -63,7 +62,7 @@ public class SplashActivity extends Activity {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            Intent intent = new Intent(SplashActivity.this, MainAcitvity.class);
+            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
             SplashActivity.this.startActivity(intent);
             //activity的淡出效果
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
