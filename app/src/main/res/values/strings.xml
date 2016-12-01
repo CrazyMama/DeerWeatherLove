@@ -5,4 +5,5 @@
     <string name="setting">设置</string>
     <string name="about">关于我</string>
     <string name="complete">加载完成。</string>
+    <string name="can_not_find_version_name">找不到当前版本号</string>
 </resources>

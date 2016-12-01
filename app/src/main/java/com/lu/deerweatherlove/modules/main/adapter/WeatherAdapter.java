@@ -9,6 +9,8 @@ import com.lu.deerweatherlove.modules.main.domain.Weather;
  * Created by L on 16/12/1.
  */
 public class WeatherAdapter extends RecyclerView.Adapter {
+
+
     public WeatherAdapter(Weather mWeather) {
 
     }

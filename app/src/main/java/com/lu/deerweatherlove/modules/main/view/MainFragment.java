@@ -187,11 +187,11 @@ public class MainFragment extends BaseFragment {
      * 从网络获取
      */
     private Observable<Weather> fetchDataByNetWork() {
-//        String cityName = SharedPreferenceUtil.getInstance().getCityName();
-//        return RetrofitSingleton.getInstance()
-//                .fetchWeather(cityName)
-//                .compose(this.bindToLifecycle());
-        return null;
+        String cityName = SharedPreferenceUtil.getInstance().getCityName();
+        return RetrofitSingleton.getInstance()
+                .fetchWeather(cityName)
+                .compose(this.bindToLifecycle());
+
     }
 
     /**
@@ -219,6 +219,11 @@ public class MainFragment extends BaseFragment {
      */
     @Override
     protected void lazyLoad() {
+
+
+
+
+
 
     }
 
