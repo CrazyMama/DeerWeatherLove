@@ -22,7 +22,7 @@ public class SharedPreferenceUtil {
     public static final String ANIM_START = "animation_start";
 
     public static int ONE_HOUR = 1000 * 60 * 60;
-    //danli
+    //单例
     private SharedPreferences mSP;
 
     public static SharedPreferenceUtil getInstance() {

@@ -19,7 +19,15 @@ import android.widget.ProgressBar;
 
 import com.lu.deerweatherlove.R;
 import com.lu.deerweatherlove.base.BaseFragment;
+import com.lu.deerweatherlove.common.utils.SharedPreferenceUtil;
+import com.lu.deerweatherlove.common.utils.SimpleSubscriber;
+import com.lu.deerweatherlove.common.utils.ToastUtil;
 import com.lu.deerweatherlove.common.utils.ULog;
+import com.lu.deerweatherlove.component.RetrofitSingleton;
+import com.lu.deerweatherlove.component.RxBus;
+import com.lu.deerweatherlove.modules.main.adapter.WeatherAdapter;
+import com.lu.deerweatherlove.modules.main.domain.ChangeCityEvent;
+import com.lu.deerweatherlove.modules.main.domain.Weather;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
 import butterknife.BindView;
@@ -37,7 +45,7 @@ import rx.functions.Action1;
 public class MainFragment extends BaseFragment {
 
 
-   // private static Weather mWeather = new Weather();
+    private static Weather mWeather = new Weather();
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerview;
     @BindView(R.id.swiprefresh)
@@ -46,8 +54,8 @@ public class MainFragment extends BaseFragment {
     ProgressBar mProgressBar;
     @BindView(R.id.iv_erro)
     ImageView mIvErro;
-   // private WeatherAdapter mAdapter;
-   // private Observer<Weather> observer;
+    private WeatherAdapter mAdapter;
+   private Observer<Weather> observer;
 
 
     private View view;
@@ -75,13 +83,17 @@ public class MainFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView();
-        // https://github.com/tbruyelle/RxPermissions
+        /**
+         * 参考于
+         *  https://github.com/tbruyelle/RxPermissions
+         */
+
         RxPermissions.getInstance(getActivity()).request(Manifest.permission.ACCESS_COARSE_LOCATION)
                 .subscribe(granted -> {
                     if (granted) {
                         location();
                     } else {
-      //                  load();
+                       load();
                     }
                 });
    //     CheckVersion.checkVersion(getActivity());
@@ -91,19 +103,19 @@ public class MainFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        ULog.d("onCreate");
-//        RxBus.getDefault().toObserverable(ChangeCityEvent.class)
-//                .observeOn(AndroidSchedulers.mainThread()).subscribe(
-//                new SimpleSubscriber<ChangeCityEvent>() {
-//                    @Override
-//                    public void onNext(ChangeCityEvent changeCityEvent) {
-//                        if (mSwiprefresh != null) {
-//                            mSwiprefresh.setRefreshing(true);
-//                        }
-//                        load();
-//                        ULog.d("MainRxBus");
-//                    }
-//                });
+        ULog.d("onCreate");
+        RxBus.getDefault().toObserverable(ChangeCityEvent.class)
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(
+                new SimpleSubscriber<ChangeCityEvent>() {
+                    @Override
+                    public void onNext(ChangeCityEvent changeCityEvent) {
+                        if (mSwiprefresh != null) {
+                            mSwiprefresh.setRefreshing(true);
+                        }
+                        load();
+                        ULog.d("MainRxBus");
+                    }
+                });
     }
 
     private void initView() {
@@ -112,74 +124,75 @@ public class MainFragment extends BaseFragment {
                     android.R.color.holo_green_light,
                     android.R.color.holo_orange_light,
                     android.R.color.holo_red_light);
-       //     mSwiprefresh.setOnRefreshListener(
-     //               () -> mSwiprefresh.postDelayed(this::load, 1000));
+           mSwiprefresh.setOnRefreshListener(
+                    () -> mSwiprefresh.postDelayed(this::load, 1000));
         }
 
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
-    //    mAdapter = new WeatherAdapter(mWeather);
-   //     mRecyclerview.setAdapter(mAdapter);
+       mAdapter = new WeatherAdapter(mWeather);
+       mRecyclerview.setAdapter(mAdapter);
     }
 
-//    private void load() {
-//        fetchDataByNetWork()
-//                .doOnRequest(new Action1<Long>() {
-//                    @Override
-//                    public void call(Long aLong) {
-//                        mSwiprefresh.setRefreshing(true);
-//                    }
-//                })
-//                .doOnError(throwable -> {
-//                    mIvErro.setVisibility(View.VISIBLE);
-//                    mRecyclerview.setVisibility(View.GONE);
-//                    SharedPreferenceUtil.getInstance().setCityName("北京");
-//                    safeSetTitle("找不到城市啦");
-//                })
-//                .doOnNext(weather -> {
-//                    mIvErro.setVisibility(View.GONE);
-//                    mRecyclerview.setVisibility(View.VISIBLE);
-//                })
-//                .doOnTerminate(() -> {
-//                    mSwiprefresh.setRefreshing(false);
-//                    mProgressBar.setVisibility(View.GONE);
-//                }).subscribe(new Subscriber<Weather>() {
-//            @Override
-//            public void onCompleted() {
-//                ToastUtil.showShort(getString(R.string.complete));
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//                ULog.e(e.toString());
-//                RetrofitSingleton.disposeFailureInfo(e);
-//            }
-//
-//            @Override
-//            public void onNext(Weather weather) {
-//                mWeather.status = weather.status;
-//                mWeather.aqi = weather.aqi;
-//                mWeather.basic = weather.basic;
-//                mWeather.suggestion = weather.suggestion;
-//                mWeather.now = weather.now;
-//                mWeather.dailyForecast = weather.dailyForecast;
-//                mWeather.hourlyForecast = weather.hourlyForecast;
-//                //mActivity.getToolbar().setTitle(weather.basic.city);
-//                safeSetTitle(weather.basic.city);
-//                mAdapter.notifyDataSetChanged();
-//                normalStyleNotification(weather);
-//            }
-//        });
-//    }
+    private void load() {
+        fetchDataByNetWork()
+                .doOnRequest(new Action1<Long>() {
+                    @Override
+                    public void call(Long aLong) {
+                        mSwiprefresh.setRefreshing(true);
+                    }
+                })
+                .doOnError(throwable -> {
+                    mIvErro.setVisibility(View.VISIBLE);
+                    mRecyclerview.setVisibility(View.GONE);
+                    SharedPreferenceUtil.getInstance().setCityName("北京");
+                    safeSetTitle("找不到城市啦");
+                })
+                .doOnNext(weather -> {
+                    mIvErro.setVisibility(View.GONE);
+                    mRecyclerview.setVisibility(View.VISIBLE);
+                })
+                .doOnTerminate(() -> {
+                    mSwiprefresh.setRefreshing(false);
+                    mProgressBar.setVisibility(View.GONE);
+                }).subscribe(new Subscriber<Weather>() {
+            @Override
+            public void onCompleted() {
+                ToastUtil.showShort(getString(R.string.complete));
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                ULog.e(e.toString());
+                RetrofitSingleton.disposeFailureInfo(e);
+            }
+
+            @Override
+            public void onNext(Weather weather) {
+                mWeather.status = weather.status;
+                mWeather.aqi = weather.aqi;
+                mWeather.basic = weather.basic;
+                mWeather.suggestion = weather.suggestion;
+                mWeather.now = weather.now;
+                mWeather.dailyForecast = weather.dailyForecast;
+                mWeather.hourlyForecast = weather.hourlyForecast;
+                //mActivity.getToolbar().setTitle(weather.basic.city);
+                safeSetTitle(weather.basic.city);
+             //   mAdapter.notifyDataSetChanged();
+                normalStyleNotification(weather);
+            }
+        });
+    }
 
     /**
      * 从网络获取
      */
-//    private Observable<Weather> fetchDataByNetWork() {
+    private Observable<Weather> fetchDataByNetWork() {
 //        String cityName = SharedPreferenceUtil.getInstance().getCityName();
 //        return RetrofitSingleton.getInstance()
 //                .fetchWeather(cityName)
 //                .compose(this.bindToLifecycle());
-//    }
+        return null;
+    }
 
     /**
      * 高德定位
@@ -209,21 +222,21 @@ public class MainFragment extends BaseFragment {
 
     }
 
-//    private void normalStyleNotification(Weather weather) {
-//        Intent intent = new Intent(getActivity(), MainActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//        PendingIntent pendingIntent =
-//                PendingIntent.getActivity(getActivity(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-//        Notification.Builder builder = new Notification.Builder(getActivity());
-//        Notification notification = builder.setContentIntent(pendingIntent)
-//                .setContentTitle(weather.basic.city)
-//                .setContentText(String.format("%s 当前温度: %s℃ ", weather.now.cond.txt, weather.now.tmp))
-//                // 这里部分 ROM 无法成功
-//                .setSmallIcon(SharedPreferenceUtil.getInstance().getInt(weather.now.cond.txt, R.mipmap.none))
-//                .build();
-//        notification.flags = SharedPreferenceUtil.getInstance().getNotificationModel();
-//        NotificationManager manager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-//        // tag和id都是可以拿来区分不同的通知的
-//        manager.notify(1, notification);
-//    }
+    private void normalStyleNotification(Weather weather) {
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        PendingIntent pendingIntent =
+                PendingIntent.getActivity(getActivity(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Notification.Builder builder = new Notification.Builder(getActivity());
+        Notification notification = builder.setContentIntent(pendingIntent)
+                .setContentTitle(weather.basic.city)
+                .setContentText(String.format("%s 当前温度: %s℃ ", weather.now.cond.txt, weather.now.tmp))
+                // 这里部分 ROM 无法成功
+                .setSmallIcon(SharedPreferenceUtil.getInstance().getInt(weather.now.cond.txt, R.mipmap.none))
+                .build();
+        notification.flags = SharedPreferenceUtil.getInstance().getNotificationModel();
+        NotificationManager manager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+        // tag和id都是可以拿来区分不同的通知的
+        manager.notify(1, notification);
+    }
 }
