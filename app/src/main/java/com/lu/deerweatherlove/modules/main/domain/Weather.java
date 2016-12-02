@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by L on 16/12/1.
+ * Created by L on 16/11/22.
  * <p>
  * <p>    关于 serializable 接口
  * 为了保存在内存中的各种对象的状态（也就是实例变量，不是方法），并且可以把保存的对象状态再读出来。虽然你可以用你自己的各种各样的方法来保存object states，但是Java为我们提供一种很好保存对象状态的机制，那就是序列化。

@@ -7,7 +7,7 @@ import retrofit2.http.Query;
 import rx.Observable;
 
 /**
- * Created by L on 16/12/2.
+ * Created by L on 16/11/22.
  * Info:
  */
 public interface ApiInterface {

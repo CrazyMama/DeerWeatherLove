@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
 import com.lu.deerweatherlove.base.BaseApplication;
 
 /**
- * Created by L on 16/12/1.
+ * Created by L on 16/11/22.
  */
 
 public class SharedPreferenceUtil {

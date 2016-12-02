@@ -3,7 +3,7 @@ package com.lu.deerweatherlove.common.utils;
 import rx.Subscriber;
 
 /**
- * Created by L on 16/12/1.
+ * Created by L on 16/11/22.
  *
  * Info: 简化 Rx 的模式,用在只关乎 onNext() 逻辑
  */

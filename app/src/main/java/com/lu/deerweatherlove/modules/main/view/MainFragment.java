@@ -39,7 +39,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
 /**
- * Created by L on 16/12/1.
+ * Created by L on 16/10/20.
  */
 
 public class MainFragment extends BaseFragment {

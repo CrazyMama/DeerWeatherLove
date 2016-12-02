@@ -9,7 +9,7 @@ import rx.plugins.RxJavaPlugins;
 import rx.schedulers.Schedulers;
 
 /**
- * Created by L on 16/12/2.
+ * Created by L on 16/11/22.
  *
  * Info:对于Rx 的封装
  */

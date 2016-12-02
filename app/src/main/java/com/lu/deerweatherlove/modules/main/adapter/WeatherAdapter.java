@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import com.lu.deerweatherlove.modules.main.domain.Weather;
 
 /**
- * Created by L on 16/12/1.
+ * Created by L on 16/11/22.
  */
 public class WeatherAdapter extends RecyclerView.Adapter {
 

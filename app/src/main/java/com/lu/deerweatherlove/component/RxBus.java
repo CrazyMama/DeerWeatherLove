@@ -6,9 +6,9 @@ import rx.subjects.SerializedSubject;
 import rx.subjects.Subject;
 
 /**
- * Created by L on 16/12/1.
+ * Created by L on 16/11/22.
  *
- *  Info: 静态内部类
+ *  Info: 静态内部类 Rxbus常用于组件间信息的交换与通知，避免采用广播以及使用一大堆接口来实现。
  */
 public class RxBus {
     // 主题

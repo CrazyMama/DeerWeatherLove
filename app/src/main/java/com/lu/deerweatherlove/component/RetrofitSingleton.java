@@ -25,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 
 /**
- * Created by L on 16/12/1.
+ * Created by L on 16/11/22.
  * <p>
  * 对 Retrofit 和 okHttp的封装
  */
