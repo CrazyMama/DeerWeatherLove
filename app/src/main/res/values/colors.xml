@@ -7,4 +7,7 @@
     <color name="textHint">#8C8C8C</color>
 
     <color name="cloudyText">#728288</color>
+
+    <color name="defaultTextColor">#6f6f6f</color>
+
 </resources>
