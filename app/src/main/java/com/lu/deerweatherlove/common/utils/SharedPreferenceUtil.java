@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+
 import com.lu.deerweatherlove.base.BaseApplication;
 
 /**
