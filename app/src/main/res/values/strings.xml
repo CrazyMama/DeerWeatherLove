@@ -6,4 +6,23 @@
     <string name="about">关于我</string>
     <string name="complete">加载完成。</string>
     <string name="can_not_find_version_name">找不到当前版本号</string>
+    <string name="app_html">
+        https://github.com/CrazyMama/DeerWeatherLove
+    </string>
+    <string name="nav_drawer_open">打开抽屉</string>
+    <string name="nae_drawwer_close">关闭抽屉</string>
+    <string name="double_exit">再按一次退出</string>
+    <string name="chage_icon">更换图标</string>
+
+    <string-array name="icons">
+        <item>图标一</item>
+        <item>图标二</item>
+    </string-array>
+
+    <string-array name="cache_time">
+        <item>禁止刷新</item>
+        <item>每1小时</item>
+        <item>每3小时</item>
+        <item>每6小时</item>
+    </string-array>
 </resources>

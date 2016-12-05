@@ -23,6 +23,15 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".modules.setting.view.SettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".modules.city.view.ChoiceCityActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".modules.about.view.AboutActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
