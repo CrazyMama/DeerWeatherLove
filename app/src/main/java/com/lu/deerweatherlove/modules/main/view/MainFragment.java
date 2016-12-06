@@ -144,7 +144,7 @@ public class MainFragment extends BaseFragment {
                 .doOnError(throwable -> {
                     mIvErro.setVisibility(View.VISIBLE);
                     mRecyclerview.setVisibility(View.GONE);
-                    SharedPreferenceUtil.getInstance().setCityName("北京");
+                    SharedPreferenceUtil.getInstance().setCityName("保定");
                     safeSetTitle("找不到城市啦");
                 })
                 .doOnNext(weather -> {
@@ -177,7 +177,7 @@ public class MainFragment extends BaseFragment {
                 mWeather.hourlyForecast = weather.hourlyForecast;
                 //mActivity.getToolbar().setTitle(weather.basic.city);
                 safeSetTitle(weather.basic.city);
-             //   mAdapter.notifyDataSetChanged();
+                mAdapter.notifyDataSetChanged();
                 normalStyleNotification(weather);
             }
         });

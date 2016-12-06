@@ -38,7 +38,7 @@
             android:text="5° 13°"/>
 
         <TextView
-            android:textColor="#969696"
+            android:textColor="#ffffff"
             android:layout_marginTop="4dp"
             android:textSize="10sp"
             android:layout_below="@+id/forecast_date"

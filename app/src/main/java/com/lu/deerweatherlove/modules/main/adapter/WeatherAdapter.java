@@ -111,30 +111,27 @@ public class WeatherAdapter extends AnimRecyclerViewAdapter<RecyclerView.ViewHol
         return mWeatherData.status != null ? 4 : 0;
     }
 
-    @BindView(R.id.weather_icon)
-    ImageView weatherIcon;
-    @BindView(R.id.temp_flu)
-    TextView tempFlu;
-    @BindView(R.id.temp_max)
-    TextView tempMax;
-    @BindView(R.id.temp_min)
-    TextView tempMin;
-    @BindView(R.id.temp_layout)
-    LinearLayout tempLayout;
-    @BindView(R.id.linear_temp)
-    LinearLayout linearTemp;
-    @BindView(R.id.temp_pm)
-    TextView tempPm;
-    @BindView(R.id.temp_quality)
-    TextView tempQuality;
-    @BindView(R.id.cardView)
-    CardView cardView;
 
     /**
      * 当前天气情况
      */
     class NowWeatherViewHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.weather_icon)
+        ImageView weatherIcon;
+        @BindView(R.id.temp_flu)
+        TextView tempFlu;
+        @BindView(R.id.temp_max)
+        TextView tempMax;
+        @BindView(R.id.temp_min)
+        TextView tempMin;
+
+        @BindView(R.id.temp_pm)
+        TextView tempPm;
+        @BindView(R.id.temp_quality)
+        TextView tempQuality;
+        @BindView(R.id.cardView)
+        CardView cardView;
 
         public NowWeatherViewHolder(View itemView) {
             super(itemView);
@@ -230,6 +227,7 @@ public class WeatherAdapter extends AnimRecyclerViewAdapter<RecyclerView.ViewHol
         TextView fluBrief;
         @BindView(R.id.flu_txt)
         TextView fluTxt;
+
         public SuggestionViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -244,11 +242,13 @@ public class WeatherAdapter extends AnimRecyclerViewAdapter<RecyclerView.ViewHol
                 sportBrief.setText(String.format("运动指数---%s", weather.suggestion.sport.brf));
                 sportTxt.setText(weather.suggestion.sport.txt);
 
+                fluBrief.setText(String.format("感冒指数---%s", weather.suggestion.flu.brf));
+                fluTxt.setText(weather.suggestion.flu.txt);
+
                 travelBrief.setText(String.format("旅游指数---%s", weather.suggestion.trav.brf));
                 travelTxt.setText(weather.suggestion.trav.txt);
 
-                fluBrief.setText(String.format("感冒指数---%s", weather.suggestion.flu.brf));
-                fluTxt.setText(weather.suggestion.flu.txt);
+
             } catch (Exception e) {
                 ULog.e(e.toString());
             }

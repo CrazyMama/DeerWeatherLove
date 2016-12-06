@@ -9,5 +9,11 @@
     <color name="cloudyText">#728288</color>
 
     <color name="defaultTextColor">#6f6f6f</color>
+    <color name="card_blue">#303069</color>
+    <color name="card_yellow">#FF5722</color>
+    <color name="card_red">#a1887f</color>
+    <color name="card_blue_two">#009688</color>
+    <color name="card_green">#0091ea</color>
+    <color name="card_blue_three">#C5CAE9</color>
 
 </resources>
