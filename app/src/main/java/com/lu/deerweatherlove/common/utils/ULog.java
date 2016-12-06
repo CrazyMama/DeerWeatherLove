@@ -1,8 +1,9 @@
 package com.lu.deerweatherlove.common.utils;
 
-import android.support.compat.BuildConfig;
+
 import android.util.Log;
 
+import com.lu.deerweatherlove.BuildConfig;
 import com.lu.deerweatherlove.base.BaseApplication;
 
 import java.io.BufferedWriter;
@@ -18,19 +19,19 @@ import java.io.IOException;
 public class ULog {
     public static boolean isDebug = BuildConfig.DEBUG;
     public static final String PATH = BaseApplication.cacheDir;
-    public static final String PLOG_FILE_NAME = "log.txt";
+    public static final String ULOG_FILE_NAME = "log.txt";
 
     /**
      * 是否写入日志文件
      */
-    public static final boolean PLOG_WRITE_TO_FILE = true;
+    public static final boolean ULOG_WRITE_TO_FILE = true;
 
     /**
      * 错误信息
      */
     public static void e(String TAG, String msg) {
         Log.e(TAG, log(msg));
-        if (PLOG_WRITE_TO_FILE) {
+        if (ULOG_WRITE_TO_FILE) {
             writeLogtoFile("e", TAG, msg);
         }
     }
@@ -41,7 +42,7 @@ public class ULog {
     public static void w(String TAG, String msg) {
         if (isDebug) {
             Log.w(TAG, log(msg));
-            if (PLOG_WRITE_TO_FILE) {
+            if (ULOG_WRITE_TO_FILE) {
                 writeLogtoFile("w", TAG, msg);
             }
         }
@@ -55,7 +56,7 @@ public class ULog {
         if (isDebug) {
 
             Log.d(TAG, log(msg));
-            if (PLOG_WRITE_TO_FILE) {
+            if (ULOG_WRITE_TO_FILE) {
                 writeLogtoFile("d", TAG, msg);
             }
         }
@@ -67,7 +68,7 @@ public class ULog {
     public static void i(String TAG, String msg) {
         if (isDebug) {
             Log.i(TAG, log(msg));
-            if (PLOG_WRITE_TO_FILE) {
+            if (ULOG_WRITE_TO_FILE) {
                 writeLogtoFile("i", TAG, msg);
             }
         }
@@ -103,7 +104,7 @@ public class ULog {
                 + tag
                 + "\r\n"
                 + msg;
-        File file = new File(PATH, PLOG_FILE_NAME);
+        File file = new File(PATH, ULOG_FILE_NAME);
         try {
             FileWriter filerWriter = new FileWriter(file, true);
             BufferedWriter bufWriter = new BufferedWriter(filerWriter);
@@ -121,7 +122,7 @@ public class ULog {
      */
     public static void delFile() {
 
-        File file = new File(PATH, PLOG_FILE_NAME);
+        File file = new File(PATH, ULOG_FILE_NAME);
         if (file.exists()) {
             file.delete();
         }

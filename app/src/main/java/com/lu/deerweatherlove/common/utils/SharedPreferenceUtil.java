@@ -23,8 +23,18 @@ public class SharedPreferenceUtil {
     public static final String ANIM_START = "animation_start";
 
     public static int ONE_HOUR = 1000 * 60 * 60;
+
+
     //单例
     private SharedPreferences mSP;
+
+    private SharedPreferenceUtil() {
+
+        if (mSP == null) {
+
+            mSP = BaseApplication.getmAppContext().getSharedPreferences("setting", Context.MODE_PRIVATE);
+        }
+    }
 
     public static SharedPreferenceUtil getInstance() {
         return SPHolder.sInstance;
@@ -34,9 +44,7 @@ public class SharedPreferenceUtil {
         private static final SharedPreferenceUtil sInstance = new SharedPreferenceUtil();
     }
 
-    private SharedPreferenceUtil() {
-        mSP = BaseApplication.getmAppContext().getSharedPreferences("setting", Context.MODE_PRIVATE);
-    }
+
     /**
      * java中return this 指的是返回类的当前对象。
      * return this; 语句一般都是用在类中非静态方法的末尾。
@@ -136,11 +144,16 @@ public class SharedPreferenceUtil {
      * @param type
      */
     public void setIconType(int type) {
+
         mSP.edit().putInt(CHANGE_ICONS, type).apply();
+        }
 
-    }
 
-    public int getIconType() {
+
+
+    public int getIconType( ) {
+
+
         return mSP.getInt(CHANGE_ICONS, 0);
     }
 

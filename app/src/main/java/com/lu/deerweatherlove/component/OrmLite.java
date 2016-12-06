@@ -19,14 +19,16 @@ import rx.Observable;
 public class OrmLite {
     static LiteOrm liteOrm;
 
+
+
     public static LiteOrm getInstance() {
         getOrmHolder();
         return liteOrm;
     }
-
     private static OrmLite getOrmHolder() {
         return OrmHolder.sInstance;
     }
+
 
     private OrmLite() {
         if (liteOrm == null) {

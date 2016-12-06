@@ -4,15 +4,18 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Environment;
 
+import com.lu.deerweatherlove.common.utils.ULog;
+
+
 /**
  * Created by L on 16/11/19.
  */
 
 public class BaseApplication extends Application {
 
-
-    public static Context mAppContext=null;
     public static String cacheDir;
+
+    public  static Context sAppContext= null;
 
 
 
@@ -20,7 +23,10 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        mAppContext = getApplicationContext();
+
+
+        sAppContext =getApplicationContext();
+
 
         /**
          * 如果存在SD卡将缓存写入SD卡，否则写入手机内存
@@ -37,7 +43,11 @@ public class BaseApplication extends Application {
     }
 
 
-    public static Context getmAppContext() {
-        return mAppContext;
+    public  static Context getmAppContext() {
+        return sAppContext;
+    }
+
+    public static String getCachedir(){
+        return cacheDir;
     }
 }

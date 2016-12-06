@@ -22,15 +22,19 @@ import android.view.View;
 
 import com.lu.deerweatherlove.R;
 import com.lu.deerweatherlove.base.BaseActivity;
+import com.lu.deerweatherlove.base.Constant;
+import com.lu.deerweatherlove.common.utils.CircularAnimUtil;
 import com.lu.deerweatherlove.common.utils.DoubleClickEXit;
 import com.lu.deerweatherlove.common.utils.RxDrawer;
 import com.lu.deerweatherlove.common.utils.RxUtils;
 import com.lu.deerweatherlove.common.utils.SharedPreferenceUtil;
 import com.lu.deerweatherlove.common.utils.SimpleSubscriber;
 import com.lu.deerweatherlove.common.utils.ToastUtil;
+import com.lu.deerweatherlove.common.utils.ULog;
 import com.lu.deerweatherlove.modules.about.view.AboutActivity;
 import com.lu.deerweatherlove.modules.city.view.ChoiceCityActivity;
 import com.lu.deerweatherlove.modules.main.adapter.HomePagerAdapter;
+import com.lu.deerweatherlove.modules.service.AutoUpdateService;
 import com.lu.deerweatherlove.modules.setting.view.SettingActivity;
 
 import butterknife.BindView;
@@ -63,6 +67,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+        ULog.i("onCreate");
         initView();
 
         initDrawer();
@@ -70,7 +75,20 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         initIcon();
 
         //开启服务
+        startService(new Intent(this, AutoUpdateService.class));
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        ULog.i("onStart");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        initIcon();
+        ULog.i("onRestart");
     }
 
     //视图初始化
@@ -99,9 +117,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                         @Override
                         public void onClick(View v) {
                             //选择城市
-                            // Intent intent＝new Intent(MainActivity.this, ChoiceCityActivity.class);
-                            // intent.putExtra(Constant.MULTI_CHECK, true);
-
+                             Intent intent=new Intent(MainActivity.this, ChoiceCityActivity.class);
+                             intent.putExtra(Constant.MULTI_CHECK, true);
+                            CircularAnimUtil.startActivity(MainActivity.this, intent, fabutton,
+                                    R.color.colorPrimary);
                         }
                     });
                     if (!fabutton.isShown()) {
@@ -204,6 +223,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
      */
 
     private void initIcon() {
+
+
+
         if (SharedPreferenceUtil.getInstance().getIconType() == 0) {
             SharedPreferenceUtil.getInstance().putInt("未知", R.mipmap.none);
             SharedPreferenceUtil.getInstance().putInt("晴", R.mipmap.type_one_sunny);
