@@ -138,7 +138,7 @@ public class RetrofitSingleton {
         return apiService.mWeatherAPI(city, Constant.KEY).flatMap(weatherAPI -> {
             String status = weatherAPI.mHeWeather5.get(0).status;
             if ("no more requests".equals(status)) {
-                return Observable.error(new RuntimeException("/(ㄒoㄒ)/~~,API免费次数已用完"));
+                return Observable.error(new RuntimeException("API免费次数已用完"));
             } else if ("unknown city".equals(status)) {
                 return Observable.error(new RuntimeException(String.format("API没有%s", city)));
             }

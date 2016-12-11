@@ -18,12 +18,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.lu.deerweatherlove.R;
+import com.lu.deerweatherlove.base.BaseApplication;
 import com.lu.deerweatherlove.base.BaseFragment;
 import com.lu.deerweatherlove.common.utils.SharedPreferenceUtil;
 import com.lu.deerweatherlove.common.utils.SimpleSubscriber;
 import com.lu.deerweatherlove.common.utils.ToastUtil;
 import com.lu.deerweatherlove.common.utils.ULog;
+import com.lu.deerweatherlove.common.utils.Util;
 import com.lu.deerweatherlove.component.RetrofitSingleton;
 import com.lu.deerweatherlove.component.RxBus;
 import com.lu.deerweatherlove.modules.main.adapter.WeatherAdapter;
@@ -43,7 +49,7 @@ import rx.functions.Action1;
  * Created by L on 16/10/20.
  */
 
-public class MainFragment extends BaseFragment {
+public class MainFragment extends BaseFragment implements AMapLocationListener {
 
 
     private static Weather mWeather = new Weather();
@@ -56,11 +62,14 @@ public class MainFragment extends BaseFragment {
     @BindView(R.id.iv_erro)
     ImageView mIvErro;
     private WeatherAdapter mAdapter;
-   private Observer<Weather> observer;
+    private Observer<Weather> observer;
 
 
     private View view;
 
+    //声明AMapLocationClient类对象
+    private AMapLocationClient mLocationClient = null;
+    private AMapLocationClientOption mLocationOption = new AMapLocationClientOption();
 
     @Override
     public void onAttach(Context context) {
@@ -94,10 +103,10 @@ public class MainFragment extends BaseFragment {
                     if (granted) {
                         location();
                     } else {
-                       load();
+                        load();
                     }
                 });
-   //     CheckVersion.checkVersion(getActivity());
+        //     CheckVersion.checkVersion(getActivity());
     }
 
     @Override
@@ -125,13 +134,13 @@ public class MainFragment extends BaseFragment {
                     android.R.color.holo_green_light,
                     android.R.color.holo_orange_light,
                     android.R.color.holo_red_light);
-           mSwiprefresh.setOnRefreshListener(
+            mSwiprefresh.setOnRefreshListener(
                     () -> mSwiprefresh.postDelayed(this::load, 1000));
         }
 
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
-       mAdapter = new WeatherAdapter(mWeather);
-       mRecyclerview.setAdapter(mAdapter);
+        mAdapter = new WeatherAdapter(mWeather);
+        mRecyclerview.setAdapter(mAdapter);
     }
 
     private void load() {
@@ -200,6 +209,65 @@ public class MainFragment extends BaseFragment {
      */
     private void location() {
 
+
+        mSwiprefresh.setRefreshing(true);
+
+
+        //初始化定位
+        mLocationClient = new AMapLocationClient(BaseApplication.getmAppContext());
+        //声明定位回调监听器
+
+        //设置定位回调监听
+        mLocationClient.setLocationListener(this);
+
+
+        mLocationOption = new AMapLocationClientOption();
+        //设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+        //设置是否返回地址信息（默认返回地址信息）
+        mLocationOption.setNeedAddress(true);
+        //设置是否只定位一次,默认为false
+        mLocationOption.setOnceLocation(false);
+        //设置是否强制刷新WIFI，默认为强制刷新
+        mLocationOption.setWifiActiveScan(true);
+        //设置是否允许模拟位置,默认为false，不允许模拟位置
+        mLocationOption.setMockEnable(false);
+        //设置定位间隔 单位毫秒
+        int tempTime = SharedPreferenceUtil.getInstance().getAutoUpdate();
+        if (tempTime == 0) {
+            tempTime = 100;
+        }
+        mLocationOption.setInterval(tempTime * SharedPreferenceUtil.ONE_HOUR);
+        //给定位客户端对象设置定位参数
+        mLocationClient.setLocationOption(mLocationOption);
+        //启动定位
+        mLocationClient.startLocation();
+
+    }
+
+    @Override
+    public void onLocationChanged(AMapLocation amapLocation) {
+
+
+        if (amapLocation != null) {
+            if (amapLocation.getErrorCode() == 0) {
+
+                amapLocation.getLocationType();
+
+//                String city = amapLocation.getCity();
+//                System.out.println(city.toString() + "...........................");
+                SharedPreferenceUtil.getInstance().setCityName(Util.replaceCity(amapLocation.getCity()));
+
+
+            } else {
+                if (isAdded()) {
+
+                    ToastUtil.showShort("定位失败，显示默认位置咯");
+                }
+
+            }
+            load();
+        }
     }
 
 
@@ -212,6 +280,9 @@ public class MainFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mLocationClient = null;
+        mLocationOption = null;
+
 
     }
 
@@ -242,4 +313,6 @@ public class MainFragment extends BaseFragment {
         // tag和id都是可以拿来区分不同的通知的
         manager.notify(1, notification);
     }
+
+
 }

@@ -1,7 +1,10 @@
 package com.lu.deerweatherlove.modules.main.view;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.net.Uri;
 import android.os.Bundle;
@@ -37,6 +40,10 @@ import com.lu.deerweatherlove.modules.main.adapter.HomePagerAdapter;
 import com.lu.deerweatherlove.modules.service.AutoUpdateService;
 import com.lu.deerweatherlove.modules.setting.view.SettingActivity;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import rx.android.schedulers.AndroidSchedulers;
@@ -68,6 +75,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         ButterKnife.bind(this);
         ULog.i("onCreate");
+       // sHA1(getApplicationContext());
         initView();
 
         initDrawer();
@@ -76,6 +84,39 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         //开启服务
         startService(new Intent(this, AutoUpdateService.class));
+    }
+
+    /**
+     * 定位获取sha1
+     * @param context
+     * @return
+     */
+
+    public static String sHA1(Context context) {
+        try {
+            PackageInfo info = context.getPackageManager().getPackageInfo(
+                    context.getPackageName(), PackageManager.GET_SIGNATURES);
+            byte[] cert = info.signatures[0].toByteArray();
+            MessageDigest md = MessageDigest.getInstance("SHA1");
+            byte[] publicKey = md.digest(cert);
+            StringBuffer hexString = new StringBuffer();
+            for (int i = 0; i < publicKey.length; i++) {
+                String appendString = Integer.toHexString(0xFF & publicKey[i])
+                        .toUpperCase(Locale.US);
+                if (appendString.length() == 1)
+                    hexString.append("0");
+                hexString.append(appendString);
+                hexString.append(":");
+            }
+            String result = hexString.toString();
+            System.out.println(result+"......................");
+            return result.substring(0, result.length()-1);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override

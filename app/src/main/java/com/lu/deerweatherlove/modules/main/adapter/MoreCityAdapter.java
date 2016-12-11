@@ -56,6 +56,18 @@ public class MoreCityAdapter extends RecyclerView.Adapter<MoreCityAdapter.MultiC
 
         holder.invoke(mWeatherList.get(position));
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            /**
+             * 　在Android　App应用中，OnLongClick事件表示长按2秒以上触发的事件，本章我们通过长按图像设置为墙纸来理解其具体用法。
+
+             　　知识点：OnLongClickListener
+             　　OnLongClickListener接口与之前介绍的OnClickListener接口原理基本相同，只是该接口为View长按事件的捕捉接口，即当长时间按下某个View时触发的事件，该接口对应的回调方法签名如下。
+             　　public boolean onLongClick(View v)
+             　　参数v：参数v为事件源控件，当长时间按下此控件时才会触发该方法。
+             　　返回值：该方法的返回值为一个boolean类型的变量，当返回true时，表示已经完整地处理了这个事件，并不希望其他的回调方法再次进行处理；当返回false时，表示并没有完全处理完该事件，更希望其他方法继续对其进行处理。
+
+             * @param v
+             * @return
+             */
             @Override
             public boolean onLongClick(View v) {
                 onMoreCityLongClick.longClick(mWeatherList.get(holder.getAdapterPosition()).basic.city);
