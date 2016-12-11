@@ -26,6 +26,7 @@
         欢迎使用“小鹿天气”，希望每天都是好心情
     </string>
     <string name="share_app">分享－小鹿天气</string>
+    <string name="multi_cities">多个城市管理</string>
 
     <string-array name="icons">
         <item>图标一</item>

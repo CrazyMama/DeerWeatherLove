@@ -57,13 +57,15 @@ public class CityAdapter extends AnimRecyclerViewAdapter<CityAdapter.CityViewHol
     }
 
 
-    public interface OnRecyclerViewItemClickListener {
-        void onItemClick(View view, int position);
-    }
+
 
     public void setOnItemClickListener(OnRecyclerViewItemClickListener listener) {
         this.mOnItemClickListener = listener;
 
+    }
+
+    public interface OnRecyclerViewItemClickListener {
+        void onItemClick(View view, int position);
     }
 
     class CityViewHolder extends RecyclerView.ViewHolder {
