@@ -8,12 +8,12 @@
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
 
-    card_view:cardCornerRadius="5dp"
-    card_view:cardElevation="2dp"
-    card_view:cardBackgroundColor="@color/card_blue"
-    card_view:cardPreventCornerOverlap="true"
-    card_view:cardUseCompatPadding="true"
 
+
+    card_view:cardBackgroundColor="@color/card_blue"
+   
+    card_view:cardCornerRadius="3dp"
+    card_view:cardElevation="2dp"
 
     >
 

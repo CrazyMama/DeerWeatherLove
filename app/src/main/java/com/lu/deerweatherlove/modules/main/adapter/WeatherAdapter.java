@@ -30,6 +30,11 @@ public class WeatherAdapter extends AnimRecyclerViewAdapter<RecyclerView.ViewHol
 
     private Context mContext;
 
+    @Override
+    public void showItemAnim(View view, int position) {
+        super.showItemAnim(view, position);
+    }
+
     private static final int TYPE_ONE = 0;
     private static final int TYPE_TWO = 1;
     private static final int TYPE_THREE = 2;
@@ -99,6 +104,10 @@ public class WeatherAdapter extends AnimRecyclerViewAdapter<RecyclerView.ViewHol
             default:
                 break;
         }
+
+        /**
+         * 开场cardview的 动画
+         */
         if (SharedPreferenceUtil.getInstance().getMainAnim()) {
             showItemAnim(holder.itemView, position);
         }

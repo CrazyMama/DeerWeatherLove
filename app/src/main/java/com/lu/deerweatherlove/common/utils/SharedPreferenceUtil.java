@@ -20,7 +20,7 @@ public class SharedPreferenceUtil {
     public static final String CLEAR_CACHE = "clear_cache";//清空缓存
     public static final String AUTO_UPDATE = "change_update_time"; //自动更新时长
     public static final String NOTIFICATION_MODEL = "notification_model";
-    public static final String ANIM_START = "animation_start";
+    public static final String ANIM_START = "animation_start"; //开始动画
 
     public static int ONE_HOUR = 1000 * 60 * 60;
 

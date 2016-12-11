@@ -13,7 +13,7 @@ import com.lu.deerweatherlove.R;
  * Created by L on 16/12/5.
  /**
  * Thanks for drakeet/Meizhi
- * <p>
+ * Info:  主页面的动画
  * https://github.com/drakeet/Meizhi/blob/master/app%2Fsrc%2Fmain%2Fjava%2Fme%2Fdrakeet%2Fmeizhi%2Fui%2Fadapter%2FAnimRecyclerViewAdapter.java
  */
 public class AnimRecyclerViewAdapter<T extends RecyclerView.ViewHolder>

@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -221,10 +222,6 @@ public class MainFragment extends BaseFragment {
     protected void lazyLoad() {
 
 
-
-
-
-
     }
 
     private void normalStyleNotification(Weather weather) {
@@ -238,6 +235,7 @@ public class MainFragment extends BaseFragment {
                 .setContentText(String.format("%s 当前温度: %s℃ ", weather.now.cond.txt, weather.now.tmp))
                 // 这里部分 ROM 无法成功
                 .setSmallIcon(SharedPreferenceUtil.getInstance().getInt(weather.now.cond.txt, R.mipmap.none))
+                //.setLargeIcon(BitmapFactory.decodeResource(getResources(),SharedPreferenceUtil.getInstance().getInt(weather.now.cond.txt, R.mipmap.none))
                 .build();
         notification.flags = SharedPreferenceUtil.getInstance().getNotificationModel();
         NotificationManager manager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);

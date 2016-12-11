@@ -13,6 +13,19 @@
     <string name="nae_drawwer_close">关闭抽屉</string>
     <string name="double_exit">再按一次退出</string>
     <string name="chage_icon">更换图标</string>
+    <string name="aboutContent">
+
+        小鹿天气该应用就是如同它的名字一样，只做一个单纯、简单的看天气软件。这么多天气软件，你选择了我，这是我的幸运。
+    \n我也曾遇到过棘手的问题无处咨询又谷歌不到。那个时候的我，也可能是现在的你。所以我希望能够帮助到你。
+    </string>
+    <string name="open_source">• RxJava: github.com/ReactiveX/RxJava\n• RxAndroid: github.com/ReactiveX/RxAndroid\n•
+    Retrofit: github.com/square/retrofit\n• Glide: github.com/bumptech/glide\n• 和风天气提供数据支持\n•
+    高德定位提供位置定位服务
+</string>
+    <string name="share_txt" >
+        欢迎使用“小鹿天气”，希望每天都是好心情
+    </string>
+    <string name="share_app">分享－小鹿天气</string>
 
     <string-array name="icons">
         <item>图标一</item>

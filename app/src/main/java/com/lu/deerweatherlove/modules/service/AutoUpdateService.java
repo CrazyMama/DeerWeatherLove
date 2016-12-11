@@ -23,6 +23,8 @@ import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by L on 16/12/5.
+ * Info：自动请求更新服务。哈哈
+ *
  */
 public class AutoUpdateService extends Service {
 
@@ -55,6 +57,7 @@ public class AutoUpdateService extends Service {
             if (isUnsubscribed) {
                 unSubscribed();
                 if (mSharedPreferenceUtil.getAutoUpdate() != 0) {
+                    //interval 时间间隔
                     mNetSubcription = Observable.interval(mSharedPreferenceUtil.getAutoUpdate(), TimeUnit.HOURS)
                             .subscribe(aLong -> {
                                 isUnsubscribed = false;
@@ -83,7 +86,7 @@ public class AutoUpdateService extends Service {
         if (cityName != null) {
             cityName = Util.replaceCity(cityName);
         }
-        RetrofitSingleton.getInstance().fetchWeather(cityName)
+        RetrofitSingleton.getInstance().fetchWeather(cityName)      //fetch 获取
                 .subscribe(weather -> {
                     normalStyleNotification(weather);
                 });
@@ -104,7 +107,7 @@ public class AutoUpdateService extends Service {
         Notification notification = builder.setContentIntent(pendingIntent)
                 .setContentTitle(weather.basic.city)
                 .setContentText(String.format("%s 当前温度: %s℃ ", weather.now.cond.txt, weather.now.tmp))
-                // 这里部分 ROM 无法成功
+
                 .setSmallIcon(mSharedPreferenceUtil.getInt(weather.now.cond.txt, R.mipmap.none))
                 .build();
         notification.flags = mSharedPreferenceUtil.getNotificationModel();

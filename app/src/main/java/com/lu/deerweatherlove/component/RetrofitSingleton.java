@@ -1,5 +1,7 @@
 package com.lu.deerweatherlove.component;
 
+import android.support.v4.media.MediaBrowserCompat;
+
 import com.lu.deerweatherlove.BuildConfig;
 import com.lu.deerweatherlove.base.BaseApplication;
 import com.lu.deerweatherlove.base.Constant;
@@ -7,6 +9,7 @@ import com.lu.deerweatherlove.common.utils.RxUtils;
 import com.lu.deerweatherlove.common.utils.ToastUtil;
 import com.lu.deerweatherlove.common.utils.ULog;
 import com.lu.deerweatherlove.common.utils.Util;
+import com.lu.deerweatherlove.modules.about.domain.VersionAPI;
 import com.lu.deerweatherlove.modules.main.domain.Weather;
 
 import java.io.File;
@@ -47,6 +50,8 @@ public class RetrofitSingleton {
     public static RetrofitSingleton getInstance() {
         return SingletonHolder.INSTANCE;
     }
+
+
 
     private static class SingletonHolder {
         private static final RetrofitSingleton INSTANCE = new RetrofitSingleton();
@@ -143,7 +148,7 @@ public class RetrofitSingleton {
                 .compose(RxUtils.rxSchedulerHelper());
     }
 
-//    public Observable<VersionAPI> fetchVersion() {
-//        return apiService.mVersionAPI(C.API_TOKEN).compose(RxUtils.rxSchedulerHelper());
-//    }
+    public Observable<VersionAPI> fetchVersion() {
+        return apiService.mVersionAPI(Constant.API_TOKEN).compose(RxUtils.rxSchedulerHelper());
+    }
 }
