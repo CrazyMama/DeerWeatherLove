@@ -8,6 +8,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.lu.deerweatherlove.R;
+import com.lu.deerweatherlove.modules.city.adapter.CityAdapter;
 
 /**
  * Created by L on 16/12/5.
@@ -16,7 +17,7 @@ import com.lu.deerweatherlove.R;
  * Info:  主页面的动画
  * https://github.com/drakeet/Meizhi/blob/master/app%2Fsrc%2Fmain%2Fjava%2Fme%2Fdrakeet%2Fmeizhi%2Fui%2Fadapter%2FAnimRecyclerViewAdapter.java
  */
-public class AnimRecyclerViewAdapter<T extends RecyclerView.ViewHolder>
+public  class AnimRecyclerViewAdapter<T extends RecyclerView.ViewHolder>
         extends RecyclerView.Adapter<T> {
 
     private static final int DELAY = 138;
@@ -32,6 +33,8 @@ public class AnimRecyclerViewAdapter<T extends RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(T holder, int position) {
     }
+
+
 
 
     @Override
