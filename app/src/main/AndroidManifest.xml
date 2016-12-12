@@ -10,7 +10,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 
-
     <!-- Normal Permissions 不需要运行时注册 -->
     <!--获取运营商信息，用于支持提供运营商信息相关的接口-->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -25,7 +24,6 @@
 
     <!-- 不是SDK需要的权限，是示例中的后台唤醒定位需要的权限 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
 
 
     <!-- 需要运行时注册的权限 -->
@@ -58,13 +56,27 @@
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="ae3200d1671553c378f4c29cfd395bee"/>
+            android:value="ae3200d1671553c378f4c29cfd395bee" />
 
         <service android:name="com.amap.api.location.APSService"></service>
+
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="584e0df3c62dca316500193d"></meta-data>
+        <meta-data
+            android:name="UMENG_MESSAGE_SECRET"
+            android:value="a81b3e74c4d754f4b0480a0a4defc3f0"></meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Channel ID" >
+        </meta-data>
 
         <activity
             android:name=".modules.splash.SplashActivity"
             android:theme="@style/SplashTheme">
+
+            <meta-data android:name="UMENG_CHANNEL" android:value="${UMENG_CHANNEL_VALUE}"/>
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -88,6 +100,8 @@
         <activity
             android:name=".modules.about.view.AboutActivity"
             android:screenOrientation="portrait" />
+
+
     </application>
 
 </manifest>

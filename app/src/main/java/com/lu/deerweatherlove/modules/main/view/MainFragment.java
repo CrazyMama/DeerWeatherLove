@@ -25,6 +25,7 @@ import com.amap.api.location.AMapLocationListener;
 import com.lu.deerweatherlove.R;
 import com.lu.deerweatherlove.base.BaseApplication;
 import com.lu.deerweatherlove.base.BaseFragment;
+import com.lu.deerweatherlove.common.utils.CheckVersion;
 import com.lu.deerweatherlove.common.utils.SharedPreferenceUtil;
 import com.lu.deerweatherlove.common.utils.SimpleSubscriber;
 import com.lu.deerweatherlove.common.utils.ToastUtil;
@@ -106,7 +107,7 @@ public class MainFragment extends BaseFragment implements AMapLocationListener {
                         load();
                     }
                 });
-        //     CheckVersion.checkVersion(getActivity());
+            CheckVersion.checkVersion(getActivity());
     }
 
     @Override

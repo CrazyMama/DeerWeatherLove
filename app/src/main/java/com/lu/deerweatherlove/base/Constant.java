@@ -6,7 +6,7 @@ package com.lu.deerweatherlove.base;
 public class Constant {
 
     public static final String WEATHER_CACHE = "weatherData";
-    public static final String API_TOKEN = "";//fir.im 托管平台api_token
+    public static final String API_TOKEN = "deaa1dbc0b11ba80e0895f3b7fcbe841";//fir.im 托管平台api_token
 
     public static final String KEY = "e7d9be50e7064814acd8a1e348a17420";// 和风天气 key
 

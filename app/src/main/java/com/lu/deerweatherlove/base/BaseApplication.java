@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.Environment;
 
 import com.lu.deerweatherlove.common.utils.ULog;
+import com.umeng.message.IUmengRegisterCallback;
+import com.umeng.message.PushAgent;
 
 
 /**
@@ -15,17 +17,34 @@ public class BaseApplication extends Application {
 
     public static String cacheDir;
 
-    public  static Context sAppContext= null;
-
-
+    public static Context sAppContext = null;
 
 
     @Override
     public void onCreate() {
         super.onCreate();
+/**
+ * 友盟推送
+ */
+
+        PushAgent mPushAgent = PushAgent.getInstance(this);
+        //注册推送服务，每次调用register方法都会回调该接口
+        mPushAgent.register(new IUmengRegisterCallback() {
+
+            @Override
+            public void onSuccess(String deviceToken) {
+                //注册成功会返回device token
+                ULog.d("UUUMMM"+deviceToken);
+            }
+
+            @Override
+            public void onFailure(String s, String s1) {
+
+            }
+        });
 
 
-        sAppContext =getApplicationContext();
+        sAppContext = getApplicationContext();
 
 
         /**
@@ -43,11 +62,11 @@ public class BaseApplication extends Application {
     }
 
 
-    public  static Context getmAppContext() {
+    public static Context getmAppContext() {
         return sAppContext;
     }
 
-    public static String getCachedir(){
+    public static String getCachedir() {
         return cacheDir;
     }
 }
